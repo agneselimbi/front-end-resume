@@ -1,0 +1,39 @@
+name: Website Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: #Allow manual triggers
+
+jobs:
+  deploy-s3-website:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install AWS CLI 
+        run: |
+          sudo apt-get update && sudo apt-get install -y awscli
+
+      - name: configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-1
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{secrets.AWS_SESSION_TOKEN }}
+
+      - name: Deploy S3 website 
+        run: |
+          $MY_BUCKET="agneslimbi-resume.com"
+          $DISTRIBUTION_ID="https://d21xsfhcgvqzrp.cloudfront.net"
+          #upload index.html file and css style sheet  to s3 bucket
+          aws s3 cp index.html s3:${MY_BUCKET}/index.html
+          aws s3 cp style.css s3:${MY_BUCKET}/style.css  
+          #invalidate cloudfront distribution 
+          aws cloudfront create-invalidation --distribution-id DISTRIBUTION_ID 
+          echo "Distribution invalidated"
+  
