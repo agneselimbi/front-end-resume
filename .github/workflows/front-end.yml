@@ -37,6 +37,6 @@ jobs:
           #invalidate cloudfront distribution 
           #aws cloudfront list-distributions
           echo  $DISTRIBUTION_ID
-          aws cloudfront create-invalidation --distribution-id E1OPWJOVC1QVAZ --paths "https://agneslimbi-resume.com/index.html" 
+          aws cloudfront create-invalidation --distribution-id E1OPWJOVC1QVAZ --paths "/index.html" "/style.css"
           echo "Distribution invalidated !!"
   
