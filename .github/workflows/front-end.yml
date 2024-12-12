@@ -28,8 +28,8 @@ jobs:
 
       - name: Deploy S3 website 
         run: |
-          $MY_BUCKET="agneslimbi-resume.com"
-          $DISTRIBUTION_ID="https://d21xsfhcgvqzrp.cloudfront.net"
+          MY_BUCKET="agneslimbi-resume.com"
+          DISTRIBUTION_ID="https://d21xsfhcgvqzrp.cloudfront.net"
           #upload index.html file and css style sheet  to s3 bucket
           aws s3 cp index.html s3:${MY_BUCKET}/index.html
           aws s3 cp style.css s3:${MY_BUCKET}/style.css  
