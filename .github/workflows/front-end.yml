@@ -44,8 +44,8 @@ jobs:
          
           
 
-          sed -i 's|__POST_API_URL___|'"$POST_API_URL"'|g' index.html
-          sed -i 's|__GET_API_URL___|'"$GET_API_URL"'|g' index.html
+          sed -i 's|"__POST_API_URL__"|${POST_API_URL}|g' index.html
+          sed -i 's|"__GET_API_URL__"|${GET_API_URL}|g' index.html
 
           #upload index.html file and css style sheet  to s3 bucket
           aws s3 cp index.html s3://${MY_BUCKET}/index.html
