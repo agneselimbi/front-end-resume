@@ -209,7 +209,7 @@
   // Function to trigger the Lambda function via API Gateway
     async function updateVisitorCounter(){
       
-      const postapiUrl = process.env.POST_API_URL; // Replace with your API Gateway URL
+      const postapiUrl = p"__POST_API_URL__"; // Replace with your API Gateway URL
 
       try {
         const postresponse = await fetch(postapiUrl,
@@ -239,7 +239,7 @@
      window.onload=updateVisitorCounter;
 
   async function refreshVisitorCounter() {
-    const getapiUrl = process.env.GET_API_URL ;// Replace with your API Gateway URL
+    const getapiUrl = "__GET_API_URL__" ;// Replace with your API Gateway URL
       
       try {
         const response = await fetch(getapiUrl, {
