@@ -32,7 +32,7 @@ jobs:
           DISTRIBUTION_ID=E1OPWJOVC1QVAZ
           #upload index.html file and css style sheet  to s3 bucket
           aws s3 cp index.html s3://${MY_BUCKET}/index.html
-          aws s3 cp styles.css s3://${MY_BUCKET}/styles.css
+          aws s3 cp styles.css s3://${MY_BUCKET}/style.css
           
           #invalidate cloudfront distribution 
           #aws cloudfront list-distributions
