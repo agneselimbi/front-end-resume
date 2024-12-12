@@ -26,17 +26,27 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{secrets.AWS_SESSION_TOKEN }}
 
+      - name: Get API outputs \
+        run: |
+          GET_API_URL=$(aws cloudformation describe-stacks --stack-name my-resume-cf-stack \
+          --query "Stacks[0].Outputs[?OutputKey=='GetApiUrl'].OutputValue" --output text)
+          echo "GET_API_URL=$GET_API_URL" >> $GITHUB_ENV
+          POST_API_URL=$(aws cloudformation describe-stacks --stack-name my-resume-cf-stack \
+          --query "Stacks[0].Outputs[?OutputKey=='PostApiUrl'].OutputValue" --output text)
+          echo "POST_API_URL=$POST_API_URL" >> $GITHUB_ENV
+          
       - name: Deploy S3 website 
         run: |
           MY_BUCKET="agneslimbi-resume.com"
           DISTRIBUTION_ID=E1OPWJOVC1QVAZ
+          export GET_API_URL=$GET_API_URL
+          export POST_API_URL=$POST_API_URL
+         
           #upload index.html file and css style sheet  to s3 bucket
           aws s3 cp index.html s3://${MY_BUCKET}/index.html
           aws s3 cp style.css s3://${MY_BUCKET}/style.css
           
           #invalidate cloudfront distribution 
-          #aws cloudfront list-distributions
-          echo  $DISTRIBUTION_ID
           aws cloudfront create-invalidation --distribution-id E1OPWJOVC1QVAZ --paths "/index.html" "/style.css"
           echo "Distribution invalidated !!"
   
