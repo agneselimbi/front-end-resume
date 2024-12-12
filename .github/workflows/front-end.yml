@@ -37,5 +37,5 @@ jobs:
           #aws cloudfront list-distributions
           echo  $DISTRIBUTION_ID
           aws cloudfront create-invalidation --distribution-id E1OPWJOVC1QVAZ --paths index.html style.css
-          echo "Distribution invalidated !"
+          echo "Distribution invalidated !!"
   
