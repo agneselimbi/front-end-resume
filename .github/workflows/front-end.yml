@@ -35,6 +35,7 @@ jobs:
           aws s3 cp style.css s3://${MY_BUCKET}/index.html
           #invalidate cloudfront distribution 
           #aws cloudfront list-distributions
-          aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths index.html style.css
+          echo  $DISTRIBUTION_ID
+          aws cloudfront create-invalidation --distribution-id E1OPWJOVC1QVAZ --paths index.html style.css
           echo "Distribution invalidated !"
   
