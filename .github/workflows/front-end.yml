@@ -31,8 +31,8 @@ jobs:
           MY_BUCKET="agneslimbi-resume.com"
           DISTRIBUTION_ID="https://d21xsfhcgvqzrp.cloudfront.net"
           #upload index.html file and css style sheet  to s3 bucket
-          aws s3 cp index.html s3:${MY_BUCKET}/index.html
-          aws s3 cp style.css s3:${MY_BUCKET}/style.css  
+          aws s3 cp index.html s3://${MY_BUCKET}/index.html
+          aws s3 cp style.css s3://${MY_BUCKET}/index.html
           #invalidate cloudfront distribution 
           aws cloudfront create-invalidation --distribution-id DISTRIBUTION_ID 
           echo "Distribution invalidated"
